@@ -10,7 +10,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   List<Widget> mywidgets = List();
   //
   Future<String> creatAlertDialog(BuildContext context) {
@@ -20,8 +19,7 @@ class _MyHomePageState extends State<MyHomePage> {
         builder: (context) {
           return AlertDialog(
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8.0)
-            ),
+                borderRadius: BorderRadius.circular(8.0)),
             title: Text("추가할 키워드를 입력하세요"),
             content: TextField(
               controller: mycontroller,
@@ -46,7 +44,7 @@ class _MyHomePageState extends State<MyHomePage> {
   //   mywidgets.add(Container(
   //           padding: EdgeInsets.only(left: 10),
   //           alignment: Alignment.centerLeft,
-  //           color: Colors.blue, 
+  //           color: Colors.blue,
   //           height: 50,
   //           child: Text(
   //             'fdsfa',
@@ -55,7 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
   //               fontSize: 30,
   //               fontWeight: FontWeight.w400
   //             ),
-              
+
   //             )
   //           ),);
   //   super.initState();
@@ -67,21 +65,24 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
         actions: <Widget>[
-          IconButton(icon: Icon(Icons.settings), onPressed: () {}),
+          IconButton(
+              icon: Icon(Icons.settings),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => FirstRoute()),
+                );
+              }),
         ],
       ),
       body: ListView(
         physics: BouncingScrollPhysics(),
-        children: <Widget>[
-          ...loadWidget()
-          ],
-
+        children: <Widget>[...loadWidget()],
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          creatAlertDialog(context).then((onValue){
+          creatAlertDialog(context).then((onValue) {
             addList(onValue);
-            
           });
         },
         tooltip: '키워드를 추가하려면 클릭하세요',
@@ -90,37 +91,69 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
-  List<Widget> loadWidget()
-  {
+
+  List<Widget> loadWidget() {
     return mywidgets;
   }
 
-  void addList(String keyword){
+  void addList(String keyword) {
     setState(() {
       mywidgets.add(
-          ListTile(//ListTile
-            // padding: EdgeInsets.only(left: 10),
-            // alignment: Alignment.centerLeft,
-            // height: 60,
-            
-            //color: Colors.white,
-            title: Text(
-              keyword,
-              textAlign: TextAlign.start,
-              style: TextStyle(
-                fontSize: 30,
-                fontWeight: FontWeight.w400
-              ),),
-            trailing: Icon(
-              Icons.arrow_forward_ios, 
-              color: Colors.red
-            ),
-            onTap: (){},
-            ),
+        ListTile(
+          //ListTile
+          // padding: EdgeInsets.only(left: 10),
+          // alignment: Alignment.centerLeft,
+          // height: 60,
+
+          //color: Colors.white,
+          title: Text(
+            keyword,
+            textAlign: TextAlign.start,
+            style: TextStyle(fontSize: 30, fontWeight: FontWeight.w400),
+          ),
+          trailing: Icon(Icons.arrow_forward_ios, color: Colors.red),
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => detailScreen(word: keyword),
+              ),
+            );
+          },
+        ),
       );
-      mywidgets.add(Divider(height: 2,color: Color(0xFF777777)));
+      mywidgets.add(Divider(height: 2, color: Color(0xFF777777)));
     });
-    
   }
- 
+}
+
+class FirstRoute extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('알림 설정'),
+      ),
+      body: Center(
+        child: Text('text'),
+      ),
+    );
+  }
+}
+
+class detailScreen extends StatelessWidget {
+  final String word;
+  detailScreen({Key key, this.word}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(word),
+        ),
+      body: Center(
+        child: Text('testtt'),
+      )
+    );
+  }
 }
