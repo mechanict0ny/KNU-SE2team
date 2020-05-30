@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "98938540905",
+    "firebase_url": "https://keynopia-userinfo.firebaseio.com",
+    "project_id": "keynopia-userinfo",
+    "storage_bucket": "keynopia-userinfo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:98938540905:android:69509f99cae3188017a3f8",
+        "android_client_info": {
+          "package_name": "com.example.ui_test"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "98938540905-f8ktjbbjrp337alsjsdhu7358tssg0oc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBBtNxH60WOcY-Z9XGTOe8labEHCgFyU3g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "98938540905-f8ktjbbjrp337alsjsdhu7358tssg0oc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
