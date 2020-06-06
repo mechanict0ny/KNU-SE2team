@@ -1,12 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-class Login extends StatefulWidget {
+class LoginPage extends StatefulWidget {
   @override
-  State createState() => LoginState();
+  State createState() => _LoginPageState();
 }
 
-class LoginState extends State<Login> {
+class _LoginPageState extends State<LoginPage> {
   String stuNumber = '';
   String stuID = '';
   String stuPW = '';
@@ -40,7 +40,6 @@ class LoginState extends State<Login> {
               color: Colors.black, //로그인 버튼 색깔 검정
 
               onPressed: () {
-               //Firestore.instance.collection('userinfo').snapshots();
                 // 사용자 이름과 비밀번호가 일치한다면!
                 Firestore.instance
                 .collection('userinfo')
@@ -48,6 +47,7 @@ class LoginState extends State<Login> {
                 .where('studentPW', isEqualTo: stuPW)
                 .getDocuments().then((QuerySnapshot ds) {
                   ds.documents.forEach((doc) => print(doc['studentName']));
+                  
                 }); 
                 if (stuNumber == '1' && stuID == '1' && stuPW == '1') {
                   // 세터로 초기화를 했기 때문에 build 함수 자동 호출하면서

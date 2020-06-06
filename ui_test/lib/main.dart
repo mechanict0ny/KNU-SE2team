@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
           canvasColor: const Color(0xFFe70b0b)//배경 빨간색,
       ),
         home: Scaffold(
-            body: Login(),
+            body: LoginPage(),
         ),
     );
   }
