@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:ui_test/screen/key_detail.dart';
 
 //void main() => runApp(KeyApp());
 
@@ -20,6 +21,7 @@ class _KeyAppState extends State<KeyApp> {
   void createDoc(String name, String vote){//키워드 추가
     int a = int.parse(vote);
     Firestore.instance.collection(colName).document(name).setData({ fnName: name, fnvalue: a });
+
   }
   void deleteDoc(String docID){//키워드 삭제
     Firestore.instance.collection(colName).document(docID).delete();
@@ -155,7 +157,13 @@ class _KeyAppState extends State<KeyApp> {
        child: ListTile(
          title: Text(record.name),
          trailing: Text(record.value.toString()),
-         onTap: () => record.reference.updateData({'value': FieldValue.increment(1)}),
+         //onTap: () => record.reference.updateData({'value': FieldValue.increment(1)}),
+         onTap: (){
+           Navigator.push(
+             context, 
+             MaterialPageRoute(builder: (context) => KeyDetailPage(word: record.name)),
+             );
+         },
          onLongPress: (){
            showDeleteDialog(data);
          },
