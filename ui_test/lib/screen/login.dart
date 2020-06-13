@@ -11,6 +11,8 @@ class LoginState extends State<Login> {
   String stuNumber = '';
   String stuID = '';
   String stuPW = '';
+  String temp = '';
+  int a;
   final String fnName = "name";
   final String fnvalue = "value";
   bool capital;
@@ -42,37 +44,32 @@ class LoginState extends State<Login> {
               color: Colors.black, //로그인 버튼 색깔 검정
 
               onPressed: () {
-               //Firestore.instance.collection('userinfo').snapshots();
-                // 사용자 이름과 비밀번호가 일치한다면!
+                temp = stuID;
                 Firestore.instance
                 .collection('userinfo')
-                .where('studentID', isEqualTo: stuID)
-                .where('studentPW', isEqualTo: stuPW)
-                .getDocuments().then((QuerySnapshot ds) {
-                  ds.documents.forEach((doc) => print(doc['studentName']));
-                }); 
-                if (stuNumber == '2' && stuID == '1' && stuPW == '1') {
-                  // 세터로 초기화를 했기 때문에 build 함수 자동 호출하면서
-                  // 아이디와 비밀번호 텍스트필드가 빈 문자열로 초기화된다.
-                  Scaffold.of(context)
-                    ..removeCurrentSnackBar()
-                    ..showSnackBar(SnackBar(content: Text('로그인 성공!!!')));
-                  setState(() {
-                    stuNumber = '';
+                .document(stuNumber)
+                .get()
+                .then((DocumentSnapshot ds){
+                  if(ds['studentID'] == stuID && ds['studentPW'] == stuPW && ds['studentNum'] == stuNumber ){
+                    a = 1;
                     stuID = '';
                     stuPW = '';
-                  });
-                  //라우트??
-                  Navigator.push(
-                    context, 
-                    MaterialPageRoute(builder: (context) => KeyApp()),
-                  );
-                  //
-                }
-                else
-                  Scaffold.of(context)
-                    ..removeCurrentSnackBar()
-                    ..showSnackBar(SnackBar(content: Text('일치하지 않습니다!!')));
+                    stuNumber ='';
+                    //라우트??
+                    Navigator.pushReplacement(
+                      context, 
+                      MaterialPageRoute(builder: (context) => KeyApp()),
+                     );
+                    //
+                  }
+                  else{
+                    Scaffold.of(context).showSnackBar(
+                    new SnackBar(content: new Text("로그인 정보 없음"), duration: Duration(milliseconds: 1000)) 
+                    ); 
+                  }
+                  
+                });
+                
               }
           ),
             margin: EdgeInsets.only(top: 12),
