@@ -1,22 +1,29 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+//import 'package:ui_test/screen/home.dart';
+import 'package:ui_test/screen/home.dart'; 
 
 class LoginPage extends StatefulWidget {
   @override
-  State createState() => _LoginPageState();
+  _LoginPageState createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
   String stuNumber = '';
   String stuID = '';
   String stuPW = '';
+  String temp ='';
+  int a;
   final String fnName = "name";
   final String fnvalue = "value";
   bool capital;
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return Scaffold(
+      backgroundColor: const Color(0xFFe70b0b),
+      body: Builder(builder: (context)=> Center(
       child: Column(
         children: <Widget>[
           Container(
@@ -40,31 +47,24 @@ class _LoginPageState extends State<LoginPage> {
               color: Colors.black, //로그인 버튼 색깔 검정
 
               onPressed: () {
-                // 사용자 이름과 비밀번호가 일치한다면!
+                temp = stuID;
                 Firestore.instance
                 .collection('userinfo')
-                .where('studentID', isEqualTo: stuID)
-                .where('studentPW', isEqualTo: stuPW)
-                .getDocuments().then((QuerySnapshot ds) {
-                  ds.documents.forEach((doc) => print(doc['studentName']));
-                  
-                }); 
-                if (stuNumber == '1' && stuID == '1' && stuPW == '1') {
-                  // 세터로 초기화를 했기 때문에 build 함수 자동 호출하면서
-                  // 아이디와 비밀번호 텍스트필드가 빈 문자열로 초기화된다.
-                  Scaffold.of(context)
-                    ..removeCurrentSnackBar()
-                    ..showSnackBar(SnackBar(content: Text('로그인 성공!!!')));
-                  setState(() {
-                    stuNumber = '';
+                .document(stuNumber)
+                .get()
+                .then((DocumentSnapshot ds){
+                  //print(ds['studentID']);
+                  if(ds['studentID'] == stuID && ds['studentPW'] == stuPW && ds['studentNum'] == stuNumber ){
+                    //MaterialPageRoute route = MaterialPageRoute(builder: (context) => RealHomePage());
+                    //Navigator.push(context, route);
+                    Navigator.push(context, CupertinoPageRoute(builder: (context)=> HomePage(stuNum: temp)));
                     stuID = '';
                     stuPW = '';
-                  });
-                }
-                else
-                  Scaffold.of(context)
-                    ..removeCurrentSnackBar()
-                    ..showSnackBar(SnackBar(content: Text('일치하지 않습니다!!')));
+                    stuNumber ='';
+                  } 
+                });
+                    Scaffold.of(context).showSnackBar(
+                     new SnackBar(content: new Text("로그인 정보 없음"),duration: Duration(milliseconds: 1000),),);
               }
           ),
             margin: EdgeInsets.only(top: 12),
@@ -81,6 +81,7 @@ class _LoginPageState extends State<LoginPage> {
         ],
         mainAxisAlignment: MainAxisAlignment.center,
       ),
+    ),)
     );
   }
 

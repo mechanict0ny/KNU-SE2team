@@ -1,126 +1,53 @@
 import 'package:flutter/material.dart';
+import 'package:ui_test/screen/myKeyword.dart';
+import 'package:flutter/cupertino.dart';
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
+class HomePage extends StatefulWidget {
+  final String stuNum;
+  HomePage({Key key, this.stuNum}) : super(key: key);
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _HomePageState createState() => _HomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-
-  List<Widget> mywidgets = List();
-  //
-  Future<String> creatAlertDialog(BuildContext context) {
-    TextEditingController mycontroller = TextEditingController();
-    return showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8.0)
-            ),
-            title: Text("추가할 키워드를 입력하세요"),
-            content: TextField(
-              controller: mycontroller,
-            ),
-            actions: <Widget>[
-              MaterialButton(
-                  elevation: 5.0,
-                  onPressed: () {
-                    Navigator.of(context).pop(mycontroller.text.toString());
-                  },
-                  child: Text("추가"))
-            ],
-          );
-        });
-  }
-
-  //
-  // @override
-  // void initState() {
-  //   // TODO: implement initState
-  //   mywidgets.add(Padding(padding: EdgeInsets.fromLTRB(20,0,20,0)),);
-  //   mywidgets.add(Container(
-  //           padding: EdgeInsets.only(left: 10),
-  //           alignment: Alignment.centerLeft,
-  //           color: Colors.blue, 
-  //           height: 50,
-  //           child: Text(
-  //             'fdsfa',
-  //             textAlign: TextAlign.start,
-  //             style: TextStyle(
-  //               fontSize: 30,
-  //               fontWeight: FontWeight.w400
-  //             ),
-              
-  //             )
-  //           ),);
-  //   super.initState();
-  // }
-
+class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-        actions: <Widget>[
-          IconButton(icon: Icon(Icons.settings), onPressed: () {}),
-        ],
-      ),
-      body: ListView(
-        physics: BouncingScrollPhysics(),
-        children: <Widget>[
-          ...loadWidget()
+      appBar: AppBar(title: Text('KEYNOPIA')),
+      body: Center(
+        child : Column(
+          children: <Widget>[
+            Container(
+            height: 100,
+          ),
+            Text(
+            widget.stuNum + ' 님, 반갑습니다.',
+            style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+                color: Colors.black //폰트 하얀색,
+            ),
+          ),
+          Container(
+            height: 50,
+          ),
+        RaisedButton(
+          child : Text("키워드 조회"),
+          onPressed: (){
+            MaterialPageRoute route = MaterialPageRoute(builder: (context) => MyKeywordPage(title: '키워드별 공지'));
+            Navigator.push(context, route);
+          },
+        ),
+        RaisedButton(
+          child : Text("로그아웃"),
+          onPressed: (){
+            Navigator.pop(context);
+          },
+        ),
           ],
-
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          creatAlertDialog(context).then((onValue){
-            addList(onValue);
-            
-          });
-        },
-        tooltip: '키워드를 추가하려면 클릭하세요',
-        label: Text('키워드 추가'),
-        icon: Icon(Icons.add),
+        ),
       ),
     );
   }
-  List<Widget> loadWidget()
-  {
-    return mywidgets;
-  }
-
-  void addList(String keyword){
-    setState(() {
-      mywidgets.add(
-          ListTile(//ListTile
-            // padding: EdgeInsets.only(left: 10),
-            // alignment: Alignment.centerLeft,
-            // height: 60,
-            
-            //color: Colors.white,
-            title: Text(
-              keyword,
-              textAlign: TextAlign.start,
-              style: TextStyle(
-                fontSize: 30,
-                fontWeight: FontWeight.w400
-              ),),
-            trailing: Icon(
-              Icons.arrow_forward_ios, 
-              color: Colors.red
-            ),
-            onTap: (){},
-            ),
-      );
-      mywidgets.add(Divider(height: 2,color: Color(0xFF777777)));
-    });
-    
-  }
- 
 }
