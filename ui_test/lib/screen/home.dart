@@ -1,4 +1,14 @@
 import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+import 'package:webview_flutter/webview_flutter.dart';
+
+
+ class TextClass{
+   String title;
+   TextClass({this.title});
+ }
+
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -77,7 +87,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: ListView(
         physics: BouncingScrollPhysics(),
-        children: <Widget>[...loadWidget()],
+        //children: <Widget>[...loadWidget()],
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
@@ -120,6 +130,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             );
           },
+          //onLongPress: , 삭제
         ),
       );
       mywidgets.add(Divider(height: 2, color: Color(0xFF777777)));
@@ -151,9 +162,29 @@ class detailScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(word),
         ),
-      body: Center(
-        child: Text('testtt'),
-      )
-    );
+        body: SafeArea(
+          child: WebView(
+            initialUrl: 'http://cse.knu.ac.kr/06_sub/02_sub_2.html?no=767&bbs_cmd=view&page=1&key=&keyfield=&category=&bbs_code=Site_BBS_26',
+            javascriptMode: JavascriptMode.unrestricted,
+            ),
+          ),
+      // body: FutureBuilder<TextClass>(
+      //   future: (() async{
+      //     final result =
+      //       await http.get('http://cse.knu.ac.kr/06_sub/02_sub_6.html');
+      //     return TextClass(title: json.decode(result.body)['title']);
+      //   })(),
+      //   builder: (context, snapshot) {
+      //     if (snapshot.hasData){
+      //       return Text(snapshot.data.title);
+      //     } 
+      //     else if(snapshot.hasError){
+      //       return Text(snapshot.error.toString());
+      //     }
+      //     return LinearProgressIndicator();
+      //   },
+      //   ),
+      );
+    //);
   }
 }

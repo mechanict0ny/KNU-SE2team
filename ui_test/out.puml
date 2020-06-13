@@ -1,0 +1,45 @@
+@startuml
+set namespaceSeparator ::
+
+class "ui_test::main.dart::MyApp" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "ui_test::main.dart::MyApp"
+
+class "ui_test::screen::home.dart::TextClass" {
+  +String title
+}
+
+class "ui_test::screen::home.dart::MyHomePage" {
+  +String title
+  +_MyHomePageState createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "ui_test::screen::home.dart::MyHomePage"
+
+class "ui_test::screen::home.dart::_MyHomePageState" {
+  +List<Widget> mywidgets
+  +Future creatAlertDialog()
+  +Widget build()
+  +List loadWidget()
+  +void addList()
+}
+
+"flutter::src::widgets::framework.dart::State<T>" <|-- "ui_test::screen::home.dart::_MyHomePageState"
+
+class "ui_test::screen::home.dart::FirstRoute" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "ui_test::screen::home.dart::FirstRoute"
+
+class "ui_test::screen::home.dart::detailScreen" {
+  +String word
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "ui_test::screen::home.dart::detailScreen"
+
+
+@enduml
