@@ -1,4 +1,3 @@
-
 from selenium import webdriver
 import re
 import requests
@@ -10,9 +9,8 @@ from firebase_admin import db
 
 
 i=0
-#db_url='https://keynopia-3aeeb.firebaseio.com/notice/vwb9UeeeQD8xzLo7d8EI'
-db_url='https://test-project-80063.firebaseio.com/keywords/%ED%85%8C%EC%8A%A4%ED%8A%B83'
-cred = credentials.Certificate("test.json")
+db_url='https://keynopia-3aeeb.firebaseio.com/notice/vwb9UeeeQD8xzLo7d8EI'
+cred = credentials.Certificate("mykey.json")
 firebase_admin.initialize_app(cred, {'databaseURL':db_url})
 ref=db.reference()
 base_url='http://www.knu.ac.kr/wbbs/wbbs/bbs/btin/list.action?bbs_cde=1&btin.page={}'
@@ -32,12 +30,9 @@ for n in range(9):
         date = link.select_one('td.date')
         ref.delete()
         ref.update({'제목': title.text.strip()})
-        ref.update({'date': date.text.strip()})
+        ref.update({'날짜': date.text.strip()})
         ref.update({'url': url.strip()})
         print(num.text)
         print(title.text)
         print(url)
         print(date.text)
-
-
-

@@ -60,17 +60,18 @@ class LoginState extends State<Login> {
                       context, 
                       MaterialPageRoute(builder: (context) => KeyApp()),
                      );
-                    //
-                  }
-                  else{
-                    Scaffold.of(context).showSnackBar(
-                    new SnackBar(content: new Text("로그인 정보 없음"), duration: Duration(milliseconds: 1000)) 
-                    ); 
+                    //####스낵바 수정 필요!! ####
+                    Scaffold.of(context).showSnackBar( 
+                      new SnackBar(content: new Text("로그인 성공!!"), duration: Duration(milliseconds: 1000))
+                    );
                   }
                   
                 });
-                
-              }
+
+                Scaffold.of(context).showSnackBar(
+                    new SnackBar(content: new Text("로그인 정보 없음"), duration: Duration(milliseconds: 500)) 
+                    );
+              }       
           ),
             margin: EdgeInsets.only(top: 12),
           ),

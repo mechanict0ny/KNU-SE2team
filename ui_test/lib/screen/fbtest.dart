@@ -16,11 +16,11 @@ class _KeyAppState extends State<KeyApp> {
   final String colName = "keywords";
   //final String fnKey = "keyword";
   final String fnName = "name";
-  final String fnvalue = "value";
+  //final String fnvalue = "value";
 
-  void createDoc(String name, String vote){//키워드 추가
-    int a = int.parse(vote);
-    Firestore.instance.collection(colName).document(name).setData({ fnName: name, fnvalue: a });
+  void createDoc(String name){//키워드 추가
+    //int a = int.parse(vote);
+    Firestore.instance.collection(colName).document(name).setData({ fnName: name });
 
   }
   void deleteDoc(String docID){//키워드 삭제
@@ -40,7 +40,7 @@ class _KeyAppState extends State<KeyApp> {
                 borderRadius: BorderRadius.circular(8.0)),
             title: Text("추가할 키워드를 입력하세요"),
             content: Container(
-              height: 130,
+              height: 60,
               child: Column(
                 children: <Widget>[
                   // TextField(
@@ -53,10 +53,10 @@ class _KeyAppState extends State<KeyApp> {
                     decoration: InputDecoration(labelText: "name"),
                     controller: nameCon,
                   ),
-                  TextField(
-                    decoration: InputDecoration(labelText: "value"),
-                    controller: valueCon,
-                  )
+                  // TextField(
+                  //   decoration: InputDecoration(labelText: "value"),
+                  //   controller: valueCon,
+                  // )
                 ],
               ),
             ),
@@ -64,12 +64,12 @@ class _KeyAppState extends State<KeyApp> {
               MaterialButton(
                   elevation: 5.0,
                   onPressed: () {//empty조건 추가할 것
-                    if (nameCon.text.isNotEmpty && valueCon.text.isNotEmpty){
-                      createDoc(nameCon.text, valueCon.text);
+                    if (nameCon.text.isNotEmpty){
+                      createDoc(nameCon.text);
                     }
                     //keyCon.clear();
                     nameCon.clear();
-                    valueCon.clear();
+                    //valueCon.clear();
                     Navigator.pop(context);
                   },
                   child: Text("추가"))
@@ -156,7 +156,7 @@ class _KeyAppState extends State<KeyApp> {
        ),
        child: ListTile(
          title: Text(record.name),
-         trailing: Text(record.value.toString()),
+         //trailing: Text(record.value.toString()),
          //onTap: () => record.reference.updateData({'value': FieldValue.increment(1)}),
          onTap: (){
            Navigator.push(
@@ -175,18 +175,15 @@ class _KeyAppState extends State<KeyApp> {
 
 class Record {
  final String name;
- final int value;
  final DocumentReference reference;
 
  Record.fromMap(Map<String, dynamic> map, {this.reference})
      : assert(map['name'] != null),
-       assert(map['value'] != null),
-       name = map['name'],
-       value = map['value'];
+       name = map['name'];
 
  Record.fromSnapshot(DocumentSnapshot snapshot)
      : this.fromMap(snapshot.data, reference: snapshot.reference);
 
  @override
- String toString() => "Record<$name:$value>";
+ String toString() => "Record<$name>";
 }

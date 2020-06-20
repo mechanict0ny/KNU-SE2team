@@ -16,7 +16,7 @@ class _KeyDetailPageState extends State<KeyDetailPage> {
 Widget build(BuildContext context) {
   //var data = Firestore.instance.collection('keywords').document(widget.word).collection('목록').snapshots();
    return Scaffold(
-     appBar: AppBar(title: Text(widget.word +' 세부 목록')),
+     appBar: AppBar(title: Text('\''+ widget.word +'\''  +' 관련 공지사항')),
      body: _buildBody(context),
    );
  }
