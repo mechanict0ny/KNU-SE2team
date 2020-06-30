@@ -1,11 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:ui_test/screen/login.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'screen/home.dart';
 import 'screen/fbtest.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
+  final FirebaseMessaging fcm = FirebaseMessaging();
+  void initState(){
+    fcm.configure(
+      onMessage: (Map<String, dynamic> message) async { 
+        print("onMessage: $message"); 
+      }, 
+      onResume: (Map<String, dynamic> message) async { 
+        print("onResume: $message"); 
+      }, 
+      onLaunch: (Map<String, dynamic> message) async { 
+        print("onLaunch: $message"); 
+      } 
+    );
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -37,3 +54,5 @@ class MyApp extends StatelessWidget {
 //     );
 //   }
 // }
+
+

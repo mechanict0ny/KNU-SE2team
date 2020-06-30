@@ -18,6 +18,7 @@
             android:hardwareAccelerated="true"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
+                <action android:name="FLUTTER_NOTIFICATION_CLICK" />
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>

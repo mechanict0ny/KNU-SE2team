@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:ui_test/screen/key_detail.dart';
 
+
 //void main() => runApp(KeyApp());
 
 
@@ -15,10 +16,12 @@ class KeyApp extends StatefulWidget {
 }
 
 class _KeyAppState extends State<KeyApp> {
+
   final String colName = "keywords";
   //final String fnKey = "keyword";
   final String fnName = "name";
   //final String fnvalue = "value";
+
 
   void createDoc(String name){//키워드 추가
     //int a = int.parse(vote);

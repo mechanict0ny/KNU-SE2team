@@ -47,7 +47,7 @@ def func1():
                             'url': url.strip()
                         })
                         i = i + 1
-        print('--')
+    print('--')
 
 while True:
     func1()

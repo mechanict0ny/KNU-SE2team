@@ -116,6 +116,12 @@
       "languageVersion": "2.0"
     },
     {
+      "name": "firebase_messaging",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_messaging-6.0.13",
+      "packageUri": "lib/",
+      "languageVersion": "2.0"
+    },
+    {
       "name": "flutter",
       "rootUri": "file:///C:/src/flutter/packages/flutter",
       "packageUri": "lib/",
@@ -234,6 +240,12 @@
       "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/petitparser-2.4.0",
       "packageUri": "lib/",
       "languageVersion": "2.4"
+    },
+    {
+      "name": "platform",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/platform-2.2.1",
+      "packageUri": "lib/",
+      "languageVersion": "1.24"
     },
     {
       "name": "plugin_platform_interface",
@@ -380,7 +392,7 @@
       "languageVersion": "2.2"
     }
   ],
-  "generated": "2020-06-20T13:16:19.989421Z",
+  "generated": "2020-06-30T13:50:47.789990Z",
   "generator": "pub",
   "generatorVersion": "2.8.4"
 }
