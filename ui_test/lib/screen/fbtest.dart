@@ -6,6 +6,8 @@ import 'package:ui_test/screen/key_detail.dart';
 
 
 class KeyApp extends StatefulWidget {
+  final String stuNum;
+  KeyApp({Key key, this.stuNum}):super(key:key);
  @override
  _KeyAppState createState() {
    return _KeyAppState();
@@ -20,11 +22,13 @@ class _KeyAppState extends State<KeyApp> {
 
   void createDoc(String name){//키워드 추가
     //int a = int.parse(vote);
-    Firestore.instance.collection(colName).document(name).setData({ fnName: name });
+    //Firestore.instance.collection(colName).document(name).setData({ fnName: name });
+    Firestore.instance.collection(colName).document(widget.stuNum).collection('키워드').document(name).setData({fnName: name});
 
   }
   void deleteDoc(String docID){//키워드 삭제
-    Firestore.instance.collection(colName).document(docID).delete();
+    //Firestore.instance.collection(colName).document(docID).delete();
+    Firestore.instance.collection(colName).document(widget.stuNum).collection('키워드').document(docID).delete();
   }
 
   void showCreateDialog(){
@@ -112,6 +116,7 @@ class _KeyAppState extends State<KeyApp> {
 
  @override
  Widget build(BuildContext context) {
+   Firestore.instance.collection(colName).document(widget.stuNum).setData({'name':widget.stuNum});
    return Scaffold(
      appBar: AppBar(title: Text('키워드 조회')),
      body: _buildBody(context),
@@ -127,7 +132,8 @@ class _KeyAppState extends State<KeyApp> {
 
  Widget _buildBody(BuildContext context) {
  return StreamBuilder<QuerySnapshot>(
-   stream: Firestore.instance.collection('keywords').snapshots(),
+   //stream: Firestore.instance.collection('keywords').snapshots(),
+   stream: Firestore.instance.collection('keywords').document(widget.stuNum).collection('키워드').snapshots(),
    builder: (context, snapshot) {
      if (!snapshot.hasData) return LinearProgressIndicator();
 
@@ -145,7 +151,7 @@ class _KeyAppState extends State<KeyApp> {
 
  Widget _buildListItem(BuildContext context, DocumentSnapshot data) {
    final record = Record.fromSnapshot(data);
-
+   var collection = Firestore.instance.collection('keywords').document(widget.stuNum).collection('키워드').document(record.name).collection('목록');
    return Padding(
      key: ValueKey(record.name),
      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
@@ -161,7 +167,7 @@ class _KeyAppState extends State<KeyApp> {
          onTap: (){
            Navigator.push(
              context, 
-             MaterialPageRoute(builder: (context) => KeyDetailPage(word: record.name)),
+             MaterialPageRoute(builder: (context) => KeyDetailPage(word: record.name, col: collection,)),
              );
          },
          onLongPress: (){

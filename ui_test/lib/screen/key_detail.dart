@@ -4,7 +4,8 @@ import 'package:ui_test/screen/webview.dart';
 
 class KeyDetailPage extends StatefulWidget {
   final String word;
-  KeyDetailPage({Key key, this.word}) : super(key: key);
+  final CollectionReference col;
+  KeyDetailPage({Key key, this.word, this.col}) : super(key: key);
  @override
  _KeyDetailPageState createState() {
    return _KeyDetailPageState();
@@ -23,8 +24,8 @@ Widget build(BuildContext context) {
 
  Widget _buildBody(BuildContext context) {
  return StreamBuilder<QuerySnapshot>(
-   //stream: Firestore.instance.collection('keywords').snapshots(),
-   stream: Firestore.instance.collection('keywords').document(widget.word).collection('목록').snapshots(),
+   stream: widget.col.snapshots(),
+   //stream: Firestore.instance.collection('keywords').document(widget.word).collection('목록').snapshots(),
    builder: (context, snapshot) {
      if (!snapshot.hasData) return LinearProgressIndicator();
 
@@ -58,7 +59,7 @@ Widget build(BuildContext context) {
           onTap: (){
            Navigator.push(
              context, 
-             MaterialPageRoute(builder: (context) => WebTest(url: record.url)),
+             MaterialPageRoute(builder: (context) => WebTest(url: record.url, title: record.title)),
              );
          },
        ),

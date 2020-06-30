@@ -54,11 +54,11 @@ class LoginState extends State<Login> {
                     a = 1;
                     stuID = '';
                     stuPW = '';
-                    stuNumber ='';
+                    //stuNumber ='';
                     //라우트??
                     Navigator.pushReplacement(
                       context, 
-                      MaterialPageRoute(builder: (context) => KeyApp()),
+                      MaterialPageRoute(builder: (context) => KeyApp(stuNum: stuNumber,)),
                      );
                     //####스낵바 수정 필요!! ####
                     Scaffold.of(context).showSnackBar( 
@@ -68,9 +68,9 @@ class LoginState extends State<Login> {
                   
                 });
 
-                Scaffold.of(context).showSnackBar(
-                    new SnackBar(content: new Text("로그인 정보 없음"), duration: Duration(milliseconds: 500)) 
-                    );
+                // Scaffold.of(context).showSnackBar(
+                //     new SnackBar(content: new Text("로그인 정보 없음"), duration: Duration(milliseconds: 500)) 
+                //     );
               }       
           ),
             margin: EdgeInsets.only(top: 12),
