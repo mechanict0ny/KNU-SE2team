@@ -32,10 +32,17 @@ dependencies:
   firebase_auth: ^0.16.1
   firebase_messaging: 6.0.13
 
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons: "^0.7.2"
 
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "icon/App_icon.png"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
